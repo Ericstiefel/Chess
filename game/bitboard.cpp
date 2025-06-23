@@ -86,7 +86,7 @@ uint64_t State::get_all_occupied_squares() const {
     return occupied;
 }
 
-uint64_t State::get_occupied_by_color(const Color color) {
+uint64_t State::get_occupied_by_color(Color color) const {
     uint64_t occupied = 0;
     for (int pt = 0; pt < 6; ++pt) {
         occupied |= boards[static_cast<int>(color)][pt];
@@ -139,7 +139,7 @@ void State::move_pieces(const Move move) {
 
     if (optional_captured_piece.has_value()) {
         captured_piece = optional_captured_piece.value();
-        clear_bit(&boards[static_cast<int>(opposing_color)][static_cast<int>(captured_piece)], static_cast<int>(move.to_sq));
+        clear_bit(boards[static_cast<int>(opposing_color)][static_cast<int>(captured_piece)], static_cast<int>(move.to_sq));
     }
 
     moves.push_back(std::make_tuple(
@@ -152,8 +152,8 @@ void State::move_pieces(const Move move) {
 
 
     uint64_t& bb = boards[toMove][static_cast<int>(move.piece_type)];
-    clear_bit(&bb, static_cast<int>(move.from_sq));
-    set_bit(&bb, static_cast<int>(move.to_sq));
+    clear_bit(bb, static_cast<int>(move.from_sq));
+    set_bit(bb, static_cast<int>(move.to_sq));
 
     toMove ^= 1;
 }
@@ -178,32 +178,32 @@ void State::castle(const Move move){
 
     if (color == Color::WHITE) {
         if (to_sq == Square::G1) { // Kingside
-            clear_bit(&k_b, static_cast<uint64_t>(Square::E1));
-            set_bit(&k_b, static_cast<uint64_t>(Square::G1));
-            clear_bit(&r_b, static_cast<uint64_t>(Square::H1));
-            set_bit(&r_b, static_cast<uint64_t>(Square::F1));
+            clear_bit(k_b, static_cast<uint64_t>(Square::E1));
+            set_bit(k_b, static_cast<uint64_t>(Square::G1));
+            clear_bit(r_b, static_cast<uint64_t>(Square::H1));
+            set_bit(r_b, static_cast<uint64_t>(Square::F1));
             castling &= ~0b1100;
 
         } else if (to_sq == Square::C1) { // Queenside
-            clear_bit(&k_b, static_cast<uint64_t>(Square::E1));
-            set_bit(&k_b, static_cast<uint64_t>(Square::C1));
-            clear_bit(&r_b, static_cast<uint64_t>(Square::A1));
-            set_bit(&r_b, static_cast<uint64_t>(Square::D1));
+            clear_bit(k_b, static_cast<uint64_t>(Square::E1));
+            set_bit(k_b, static_cast<uint64_t>(Square::C1));
+            clear_bit(r_b, static_cast<uint64_t>(Square::A1));
+            set_bit(r_b, static_cast<uint64_t>(Square::D1));
             castling &= ~0b1100;
         }
     } else { 
         if (to_sq == Square::G8) { // Kingside
-            clear_bit(&k_b, static_cast<uint64_t>(Square::E8));
-            set_bit(&k_b, static_cast<uint64_t>(Square::G8));
-            clear_bit(&r_b, static_cast<uint64_t>(Square::H8));
-            set_bit(&r_b, static_cast<uint64_t>(Square::F8));
+            clear_bit(k_b, static_cast<uint64_t>(Square::E8));
+            set_bit(k_b, static_cast<uint64_t>(Square::G8));
+            clear_bit(r_b, static_cast<uint64_t>(Square::H8));
+            set_bit(r_b, static_cast<uint64_t>(Square::F8));
             castling &= ~0b0011;
             
         } else if (to_sq == Square::C8) { // Queenside
-            clear_bit(&k_b, static_cast<uint64_t>(Square::E8));
-            set_bit(&k_b, static_cast<uint64_t>(Square::C8));
-            clear_bit(&r_b, static_cast<uint64_t>(Square::A8));
-            set_bit(&r_b, static_cast<uint64_t>(Square::D8));
+            clear_bit(k_b, static_cast<uint64_t>(Square::E8));
+            set_bit(k_b, static_cast<uint64_t>(Square::C8));
+            clear_bit(r_b, static_cast<uint64_t>(Square::A8));
+            set_bit(r_b, static_cast<uint64_t>(Square::D8));
             castling &= ~0b0011;
         }
     }
@@ -222,7 +222,7 @@ void State::promote(const Move move){
 
     if (optional_captured_piece.has_value()) {
         captured_piece = optional_captured_piece.value();
-        clear_bit(&boards[static_cast<int>(opposing_color)][static_cast<int>(captured_piece)], static_cast<int>(move.to_sq));
+        clear_bit(boards[static_cast<int>(opposing_color)][static_cast<int>(captured_piece)], static_cast<int>(move.to_sq));
     }
 
     moves.push_back(std::make_tuple(
@@ -235,12 +235,12 @@ void State::promote(const Move move){
 
     if (captured_piece != PieceType::NONE){
         uint64_t& opp_bb = boards[toMove ^ 1][static_cast<uint8_t>(captured_piece)];
-        clear_bit(&opp_bb, static_cast<uint64_t>(move.to_sq));
+        clear_bit(opp_bb, static_cast<uint64_t>(move.to_sq));
     }
 
 
-    clear_bit(&boards[toMove][0], static_cast<uint64_t>(move.from_sq));
-    set_bit(&boards[toMove][static_cast<uint8_t>(move.promotion_type)], static_cast<uint64_t>(move.to_sq));
+    clear_bit(boards[toMove][0], static_cast<uint64_t>(move.from_sq));
+    set_bit(boards[toMove][static_cast<uint8_t>(move.promotion_type)], static_cast<uint64_t>(move.to_sq));
 
     toMove ^= 1;
 }
@@ -264,10 +264,10 @@ void State::en_passant(const Move move){
     if (static_cast<Color>(toMove) == Color::WHITE) { captured_sq_int = to_sq_int - 8; }
     else{ captured_sq_int = to_sq_int + 8; }
 
-    clear_bit(&boards[toMove^ 1][0], captured_sq_int);
+    clear_bit(boards[toMove^ 1][0], captured_sq_int);
 
-    clear_bit(&boards[toMove][0], static_cast<uint64_t>(move.from_sq));
-    set_bit(&boards[toMove][0], static_cast<uint64_t>(move.to_sq));
+    clear_bit(boards[toMove][0], static_cast<uint64_t>(move.from_sq));
+    set_bit(boards[toMove][0], static_cast<uint64_t>(move.to_sq));
 
     toMove ^= 1;
 
@@ -308,29 +308,29 @@ void State::unmake_move(){
 
         if (static_cast<Color>(toMove) == Color::WHITE) {
             if (move.to_sq == Square::G1) { // Kingside
-                clear_bit(&k_b, static_cast<uint64_t>(Square::G1));
-                set_bit(&k_b, static_cast<uint64_t>(Square::E1));
-                clear_bit(&r_b, static_cast<uint64_t>(Square::F1));
-                set_bit(&r_b, static_cast<uint64_t>(Square::H1));
+                clear_bit(k_b, static_cast<uint64_t>(Square::G1));
+                set_bit(k_b, static_cast<uint64_t>(Square::E1));
+                clear_bit(r_b, static_cast<uint64_t>(Square::F1));
+                set_bit(r_b, static_cast<uint64_t>(Square::H1));
 
             } else if (move.to_sq == Square::C1) { // Queenside
-                clear_bit(&k_b, static_cast<uint64_t>(Square::C1));
-                set_bit(&k_b, static_cast<uint64_t>(Square::E1));
-                clear_bit(&r_b, static_cast<uint64_t>(Square::D1));
-                set_bit(&r_b, static_cast<uint64_t>(Square::A1));
+                clear_bit(k_b, static_cast<uint64_t>(Square::C1));
+                set_bit(k_b, static_cast<uint64_t>(Square::E1));
+                clear_bit(r_b, static_cast<uint64_t>(Square::D1));
+                set_bit(r_b, static_cast<uint64_t>(Square::A1));
             }
         } else { 
             if (move.to_sq == Square::G8) { // Kingside
-                clear_bit(&k_b, static_cast<uint64_t>(Square::G8));
-                set_bit(&k_b, static_cast<uint64_t>(Square::E8));
-                clear_bit(&r_b, static_cast<uint64_t>(Square::F8));
-                set_bit(&r_b, static_cast<uint64_t>(Square::H8));
+                clear_bit(k_b, static_cast<uint64_t>(Square::G8));
+                set_bit(k_b, static_cast<uint64_t>(Square::E8));
+                clear_bit(r_b, static_cast<uint64_t>(Square::F8));
+                set_bit(r_b, static_cast<uint64_t>(Square::H8));
                 
             } else if (move.to_sq == Square::C8) { // Queenside
-                clear_bit(&k_b, static_cast<uint64_t>(Square::C8));
-                set_bit(&k_b, static_cast<uint64_t>(Square::E8));
-                clear_bit(&r_b, static_cast<uint64_t>(Square::D8));
-                set_bit(&r_b, static_cast<uint64_t>(Square::A8));
+                clear_bit(k_b, static_cast<uint64_t>(Square::C8));
+                set_bit(k_b, static_cast<uint64_t>(Square::E8));
+                clear_bit(r_b, static_cast<uint64_t>(Square::D8));
+                set_bit(r_b, static_cast<uint64_t>(Square::A8));
             }
         }
     }
@@ -340,27 +340,27 @@ void State::unmake_move(){
         if (static_cast<Color>(toMove ^ 1) == Color::WHITE) { captured_sq_int = to_sq_int - 8; }
         else{ captured_sq_int = to_sq_int + 8; }
 
-        set_bit(&boards[toMove ^ 1][0], captured_sq_int);
+        set_bit(boards[toMove ^ 1][0], captured_sq_int);
 
-        clear_bit(&boards[toMove][0], to_sq_int);
-        set_bit(&boards[toMove][0], from_sq_int);
+        clear_bit(boards[toMove][0], to_sq_int);
+        set_bit(boards[toMove][0], from_sq_int);
 
     }
 
     else if (move.promotion_type != PieceType::NONE){
-        clear_bit(&boards[toMove][static_cast<uint8_t>(move.promotion_type)], static_cast<uint64_t>(move.to_sq));
-        set_bit(&boards[toMove][0], static_cast<uint64_t>(move.from_sq));
+        clear_bit(boards[toMove][static_cast<uint8_t>(move.promotion_type)], static_cast<uint64_t>(move.to_sq));
+        set_bit(boards[toMove][0], static_cast<uint64_t>(move.from_sq));
     }
 
     else { // regular non-capture move
         uint8_t piece_int = static_cast<uint8_t>(move.piece_type);
-        clear_bit(&boards[toMove][piece_int], static_cast<uint64_t>(move.to_sq));
+        clear_bit(boards[toMove][piece_int], static_cast<uint64_t>(move.to_sq));
 
-        set_bit(&boards[toMove][piece_int], static_cast<uint64_t>(move.from_sq));
+        set_bit(boards[toMove][piece_int], static_cast<uint64_t>(move.from_sq));
     }
 
     if (move.is_capture && !move.is_en_passant){ // Captured a piece regularly
-        set_bit(&boards[toMove ^ 1][static_cast<uint8_t>(captured_piece_)], static_cast<uint64_t>(move.to_sq));        
+        set_bit(boards[toMove ^ 1][static_cast<uint8_t>(captured_piece_)], static_cast<uint64_t>(move.to_sq));        
     }
 
 }

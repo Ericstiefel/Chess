@@ -28,7 +28,7 @@ struct State {
     void printBoard() const;
 
     uint64_t get_all_occupied_squares() const;
-    uint64_t get_occupied_by_color(const Color color);
+    uint64_t get_occupied_by_color(Color color) const;
     std::optional<PieceType> piece_on_square(const Square sq);
     std::optional<PieceType> piece_on_square_by_color(const Square sq, const Color color);
     std::optional<Color> color_on_square(const Square sq);
