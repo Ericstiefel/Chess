@@ -4,6 +4,8 @@
 #include <cstdint>
 #include "constants.h"
 
+#include <vector>
+
 uint64_t get_bit(uint64_t bb, uint64_t square);
 void set_bit(uint64_t& bb, uint64_t square);
 void clear_bit(uint64_t& bb, uint64_t square);

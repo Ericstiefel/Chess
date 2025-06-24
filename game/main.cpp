@@ -1,6 +1,8 @@
 #include "bitboard.h"
 #include "cases.cpp"
 #include "possible_piece_moves.h"
+#include "bit_ops.h"
+#include "utils.h"
 
 #include <vector>
 #include <iostream>
@@ -9,8 +11,12 @@ int main() {
     State state;
     state.reset();
     state.move_pieces(Move(PieceType::PAWN, Square::E2, Square::E4));
+    std::cout<< "D5: " << is_square_attacked(state, static_cast<uint64_t>(Square::D5)) << std::endl;
+    std::cout<< "E5: " << is_square_attacked(state, static_cast<uint64_t>(Square::E5)) << std::endl;
     state.move_pieces(Move(PieceType::PAWN, Square::E7, Square::E5));
-    state.move_pieces(Move(PieceType::PAWN, Square::H2, Square::H4));
+    std::cout<< "D4: " << is_square_attacked(state, static_cast<uint64_t>(Square::D4)) << std::endl;
+    state.move_pieces(Move(PieceType::PAWN, Square::G2, Square::G4));
+    std::cout<< "F3: " << is_square_attacked(state, static_cast<uint64_t>(Square::F3)) << std::endl;
     state.move_pieces(Move(PieceType::PAWN, Square::A7, Square::A5));
     state.printBoard();
 
@@ -36,18 +42,21 @@ int main() {
     //     state.unmake_move();
     //     state.printBoard();
 
-    std::vector<Move> moves = queenMoves(state, own_occupied_bb, opp_occupied_bb);
+    // std::vector<Move> moves = queenMoves(state, own_occupied_bb, opp_occupied_bb);
 
-    for (int i = 0; i < moves.size(); ++i){
-        Move move = moves[i];
+    // for (int i = 0; i < moves.size(); ++i){
+    //     Move move = moves[i];
 
-        state.move_pieces(move);
-        state.printBoard();
+    //     state.move_pieces(move);
+    //     state.printBoard();
 
-        std::cout << move.notation(static_cast<Color>(state.toMove)) << std::endl;
+    //     std::cout << move.notation(static_cast<Color>(state.toMove)) << std::endl;
 
-        state.unmake_move();
+    //     state.unmake_move();
         
-    }
+    // }
+
+
     return 0;
+    // return 0;
 }
