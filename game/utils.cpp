@@ -8,6 +8,12 @@
 #include <cstdint>
 #include <cmath>
 
+bool is_in_check(const State& state){
+    uint64_t king_sq = lsb_index(state.boards[state.toMove][5]);
+
+    return is_square_attacked(state, king_sq);
+}
+
 std::vector<uint64_t> knight_attack_indices(uint64_t square) {
     uint8_t rank = square / 8;
     uint8_t file = square % 8;

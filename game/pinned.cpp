@@ -1,4 +1,4 @@
-#include "state.h"
+#include "bitboard.h"
 #include "constants.h"
 #include "bit_ops.h"
 #include "utils.h"
@@ -19,16 +19,22 @@ bool pinned(const State& state, const uint64_t piece_sq, const uint64_t king_sq)
         uint64_t current_sq_idx = king_sq + direction;
         
         
-        while ((current_sq_idx < 64) && (is_along_ray(king_sq, current_sq, piece_sq))) {
+        while ((current_sq_idx < 64) && (is_along_ray(king_sq, current_sq_idx, piece_sq))) {
             if (get_bit(all_occ, current_sq_idx)) {
                 if (!found_piece) {
-                    if (current_sq != piece_sq) { break; }
+                    if (current_sq_idx != piece_sq) { break; }
                     found_piece = true;
                 }
 
                 else { 
-                    PieceType attacker_piece = state.piece_on_square(static_cast<Square>(current_sq));
-                    Color attacker_color = state.color_on_square(static_cast<Square>(current_sq));
+                    auto maybe_piece = state.piece_on_square(static_cast<Square>(current_sq_idx));
+                    auto maybe_color = state.color_on_square(static_cast<Square>(current_sq_idx));
+
+                    if (!maybe_piece.has_value() || !maybe_color.has_value()) break;
+
+                    PieceType attacker_piece = maybe_piece.value();
+                    Color attacker_color = maybe_color.value();
+
 
                     uint8_t abs_dir = std::abs(direction);
 
@@ -45,7 +51,7 @@ bool pinned(const State& state, const uint64_t piece_sq, const uint64_t king_sq)
                     break;
                 }
             }
-            current_sq += direction;
+            current_sq_idx += direction;
         }
     }
     return false;

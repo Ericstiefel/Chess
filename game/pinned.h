@@ -1,4 +1,4 @@
-#include "state.h"
+#include "bitboard.h"
 #include "constants.h"
 #include "bit_ops.h"
 #include "utils.h"

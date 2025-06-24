@@ -94,7 +94,7 @@ uint64_t State::get_occupied_by_color(Color color) const {
     return occupied;
 }
 
-std::optional<PieceType> State::piece_on_square(const Square sq) {
+std::optional<PieceType> State::piece_on_square(const Square sq) const{
     uint64_t mask = 1ULL << static_cast<int>(sq);
     for (int pt = 0; pt < 6; ++pt) {
         if ((boards[0][pt] | boards[1][pt]) & mask) {
@@ -104,7 +104,7 @@ std::optional<PieceType> State::piece_on_square(const Square sq) {
     return std::nullopt;
 }
 
-std::optional<PieceType> State::piece_on_square_by_color(const Square sq, const Color color) {
+std::optional<PieceType> State::piece_on_square_by_color(const Square sq, const Color color) const{
     uint64_t mask = 1ULL << static_cast<int>(sq);
     for (int pt = 0; pt < 6; ++pt) {
         if (boards[static_cast<int>(color)][pt] & mask) {
@@ -114,7 +114,7 @@ std::optional<PieceType> State::piece_on_square_by_color(const Square sq, const 
     return std::nullopt;
 }
 
-std::optional<Color> State::color_on_square(const Square sq) {
+std::optional<Color> State::color_on_square(const Square sq) const{
     uint64_t mask = 1ULL << static_cast<int>(sq);
 
     for (int color = 0; color < 2; ++color) {
