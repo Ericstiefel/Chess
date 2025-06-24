@@ -1,3 +1,4 @@
+#pragma once
 #include "bit_ops.h"
 #include "possible_piece_moves.h"
 #include "constants.h"
