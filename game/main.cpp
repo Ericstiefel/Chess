@@ -3,60 +3,52 @@
 #include "possible_piece_moves.h"
 #include "bit_ops.h"
 #include "utils.h"
+#include "legal_moves.h"
+#include "turn.h"
+#include "move.h"
 
 #include <vector>
 #include <iostream>
+#include <ctime>
+#include <random>
+#include <unordered_map>
+
+Move return_random_move(const State& state, const std::vector<Move>& moves) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(0, moves.size() - 1);
+    int randomNumber = distrib(gen);
+
+    return moves[randomNumber];
+
+}
 
 int main() {
-    State state;
-    state.reset();
-    state.move_pieces(Move(PieceType::PAWN, Square::E2, Square::E4));
-    std::cout<< "D5: " << is_square_attacked(state, static_cast<uint64_t>(Square::D5)) << std::endl;
-    std::cout<< "E5: " << is_square_attacked(state, static_cast<uint64_t>(Square::E5)) << std::endl;
-    state.move_pieces(Move(PieceType::PAWN, Square::E7, Square::E5));
-    std::cout<< "D4: " << is_square_attacked(state, static_cast<uint64_t>(Square::D4)) << std::endl;
-    state.move_pieces(Move(PieceType::PAWN, Square::G2, Square::G4));
-    std::cout<< "F3: " << is_square_attacked(state, static_cast<uint64_t>(Square::F3)) << std::endl;
-    state.move_pieces(Move(PieceType::PAWN, Square::A7, Square::A5));
-    state.printBoard();
+    for (int i = 0; i < 1000; ++i){
+        State state;
+        state.reset();
 
-    uint64_t own_occupied_bb = state.get_occupied_by_color(static_cast<Color>(state.toMove));
-    uint64_t opp_occupied_bb = state.get_occupied_by_color(static_cast<Color>(state.toMove));
+        std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int> repetition_table;
 
-    // for (int i = 0; i < EN_PASSANT_SIMPLE.size(); ++i){
-    //     Move move = Move(EN_PASSANT_SIMPLE[i]);
-    //     std::cout<< move.notation(static_cast<Color>(state.toMove)) << std::endl;
-    //     if (move.is_castle){ state.castle(move); }
-    //     else if (move.is_en_passant) { state.en_passant(move); }
-    //     else if (move.promotion_type != PieceType::NONE) { state.promote(move); }
-    //     else{ state.move_pieces(move); }
-    //     state.printBoard();
-    // }
 
-    // std::cout<<"Now, resetting the board move by move" << std::endl;
+        int move_num = 0;
 
-    // for (int i = 0; i < EN_PASSANT_SIMPLE.size(); ++i){
-    //     Move move = Move(EN_PASSANT_SIMPLE[EN_PASSANT_SIMPLE.size() - i - 1]);
-    //     std::cout<< move.notation(static_cast<Color>(state.toMove)) << std::endl;
+        while (true) {
+            std::vector<Move> leg_mo = legal_moves(state);
+            if (state.toMove == 0) { ++move_num; }
 
-    //     state.unmake_move();
-    //     state.printBoard();
+            float result = game_over(state, leg_mo);
+            if (result != 0.0) {
+                break;
+            }
+            Move move = return_random_move(state, leg_mo);
+            turn(state, move);
+            if (is_threefold_repetition(repetition_table, state)) {
+                break;
+            }
 
-    // std::vector<Move> moves = queenMoves(state, own_occupied_bb, opp_occupied_bb);
-
-    // for (int i = 0; i < moves.size(); ++i){
-    //     Move move = moves[i];
-
-    //     state.move_pieces(move);
-    //     state.printBoard();
-
-    //     std::cout << move.notation(static_cast<Color>(state.toMove)) << std::endl;
-
-    //     state.unmake_move();
-        
-    // }
-
+        }
+    }
 
     return 0;
-    // return 0;
 }

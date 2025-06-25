@@ -7,6 +7,7 @@
 #include <vector>
 #include <cstdint>
 #include <cmath>
+#include <iostream>
 
 bool is_in_check(const State& state){
     uint64_t king_sq = lsb_index(state.boards[state.toMove][5]);
@@ -135,62 +136,56 @@ bool is_square_attacked(const State& state, uint64_t target_idx) {
 
 uint64_t attackers_to_square(State& state, uint64_t target_sq) {
     uint64_t attackers = 0;
-    uint64_t own_occupied_bb = state.get_occupied_by_color(static_cast<Color>(state.toMove));
-    uint64_t opp_occupied_bb = state.get_occupied_by_color(static_cast<Color>(state.toMove ^ 1));
 
-    // Check pawn attacks
+
+    uint64_t target_bb = 1ULL << target_sq;
+    uint64_t all_occ = state.get_all_occupied_squares();
+
+    // PAWN attacks
     uint64_t pawn_bb = state.boards[state.toMove ^ 1][0];
     if (static_cast<Color>(state.toMove ^ 1) == Color::WHITE) {
-        if (target_sq >= 9 && target_sq % 8 != 0) {
-            uint64_t bit = (1ULL << (target_sq - 9)) & pawn_bb;
-            attackers |= bit;
-        }
-        if (target_sq >= 7 && target_sq % 8 != 7) {
-            uint64_t bit = (1ULL << (target_sq - 7)) & pawn_bb;
-            attackers |= bit;
-        }
+        if (target_sq >= 9 && target_sq % 8 != 0)
+            attackers |= pawn_bb & (1ULL << (target_sq - 9)); // capture from SE
+        if (target_sq >= 7 && target_sq % 8 != 7)
+            attackers |= pawn_bb & (1ULL << (target_sq - 7)); // capture from SW
     } else {
-        if (target_sq <= 55 && target_sq % 8 != 0) {
-            uint64_t bit = (1ULL << (target_sq + 7)) & pawn_bb;
-            attackers |= bit;
-        }
-        if (target_sq <= 54 && target_sq % 8 != 7) {
-            uint64_t bit = (1ULL << (target_sq + 9)) & pawn_bb;
-            attackers |= bit;
-        }
+        if (target_sq <= 55 && target_sq % 8 != 0)
+            attackers |= pawn_bb & (1ULL << (target_sq + 7)); // capture from NW
+        if (target_sq <= 54 && target_sq % 8 != 7)
+            attackers |= pawn_bb & (1ULL << (target_sq + 9)); // capture from NE
     }
 
-    // Check knights
-    for (const auto& move : knightMoves(state, own_occupied_bb)) {
-        if (static_cast<uint64_t>(move.to_sq) == target_sq) {
-            attackers |= (1ULL << static_cast<uint64_t>(move.from_sq));
-        }
+    // KNIGHT attacks
+    uint64_t knight_bb = state.boards[(state.toMove ^ 1)][1];
+    for (uint64_t from_sq : bitscan(knight_bb)) {
+        if (knight_attack_mask(from_sq) & target_bb)
+            attackers |= (1ULL << from_sq);
     }
 
-    // Check bishops
-    for (const auto& move : bishopMoves(state, own_occupied_bb, opp_occupied_bb)) {
-        if (static_cast<uint64_t>(move.to_sq) == target_sq) {
-            attackers |= (1ULL << static_cast<uint64_t>(move.from_sq));
-        }
+    // KING attacks
+    uint64_t king_bb = state.boards[(state.toMove ^ 1)][5];
+    for (uint64_t from_sq : bitscan(king_bb)) {
+        if (king_attack_mask(from_sq) & target_bb)
+            attackers |= (1ULL << from_sq);
     }
 
-    // Check rooks
-    for (const auto& move : rookMoves(state, own_occupied_bb, opp_occupied_bb)) {
-        if (static_cast<uint64_t>(move.to_sq) == target_sq) {
-            attackers |= (1ULL << static_cast<uint64_t>(move.from_sq));
-        }
+    // BISHOP + QUEEN (diagonal) attacks
+    uint64_t bishop_like = state.boards[(state.toMove ^ 1)][2] | state.boards[(state.toMove ^ 1)][4];
+    for (uint64_t from_sq : bitscan(bishop_like)) {
+        if (bishop_attack_mask(from_sq, all_occ) & target_bb)
+            attackers |= (1ULL << from_sq);
     }
 
-    // Check queens
-    for (const auto& move : queenMoves(state, own_occupied_bb, opp_occupied_bb)) {
-        if (static_cast<uint64_t>(move.to_sq) == target_sq) {
-            attackers |= (1ULL << static_cast<uint64_t>(move.from_sq));
-        }
+    // ROOK + QUEEN (orthogonal) attacks
+    uint64_t rook_like = state.boards[(state.toMove ^ 1)][3] | state.boards[(state.toMove ^ 1)][4];
+    for (uint64_t from_sq : bitscan(rook_like)) {
+        if (rook_attack_mask(from_sq, all_occ) & target_bb)
+            attackers |= (1ULL << from_sq);
     }
-
 
     return attackers;
 }
+
 
 
 uint64_t squares_between(uint64_t from_sq, uint64_t to_sq) {

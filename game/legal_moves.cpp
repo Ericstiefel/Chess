@@ -7,6 +7,7 @@
 #include "legal_king_moves.h"
 
 #include <vector>
+#include <iostream>
 
 void annotate_m_w_check(State& state, std::vector<Move>& moves) { // Time/Memory tradeoff between just making state a copy and not unmaking move
     for (Move& move: moves) {
@@ -30,6 +31,8 @@ std::vector<Move> legal_moves(State& state) {
     uint64_t attackers_bb = attackers_to_square(state, king_loc);
     uint8_t attackers_count = popcount(attackers_bb);
     bool in_check = attackers_count > 0;
+
+    std::cout << "In Check: " << static_cast<int>(attackers_count) << std::endl;
 
     // Add king moves
     std::vector<Move> king_moves = kingMoves(state, attackers_count);
@@ -59,8 +62,6 @@ std::vector<Move> legal_moves(State& state) {
     uint64_t opp_occ = state.get_occupied_by_color(static_cast<Color>(state.toMove ^ 1));
 
     std::vector<Move> candidates;
-
-    // Generate all non-king moves
     {
         auto pawn_moves = pawnMoves(state, opp_occ);
         annotate_m_w_check(state, pawn_moves);

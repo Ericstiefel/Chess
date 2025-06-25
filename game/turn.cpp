@@ -8,13 +8,14 @@
 
 #include <vector>
 #include <unordered_map>
+#include <iostream>
 
 
 void turn(State& state, Move& move) {
     
     if (move.piece_type == PieceType::PAWN || move.is_capture || move.is_castle) { state.fifty_move = 0; }
 
-    else { state.fifty_move += 1; }
+    else { if (static_cast<Color>(state.toMove) == Color::WHITE) {state.fifty_move += 1; }}
 
     if (move.promotion_type != PieceType::NONE) {
         state.promote(move);
@@ -23,12 +24,19 @@ void turn(State& state, Move& move) {
 
     else if (move.is_castle) {
         state.castle(move);
+        if (static_cast<Color>(state.toMove) == Color::WHITE) { state.castling &= 0b1100; }
+        else { state.castling &= 0b0011; }
         return;
     }
 
     else if (move.is_en_passant) {
         state.en_passant(move);
         return;
+    }
+
+    if (state.castling && move.piece_type == PieceType::KING) {
+        if (static_cast<Color>(state.toMove) == Color::WHITE) { state.castling &= 0b1100; }
+        else { state.castling &= 0b0011; }
     }
 
     state.move_pieces(move);
@@ -41,6 +49,16 @@ float game_over(const State& state, std::vector<Move>& moves) {
     return check_or_stale_mate(state, moves);
 
 }
+
+bool is_threefold_repetition(
+    std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int>& repetition_table,
+    const State& state
+) {
+    auto hash = state.hash();
+    repetition_table[hash]++;
+    return repetition_table[hash] >= 3;
+}
+
 
 bool fifty_move_rule(const State& state) {
     return state.fifty_move == 50;

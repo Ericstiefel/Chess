@@ -37,3 +37,9 @@ extern const uint64_t FILE_H;
 extern const std::array<int, 8> KNIGHT_OFFSETS;
 
 constexpr int BOARD_SIZE = 8;
+
+
+uint64_t knight_attack_mask(uint64_t sq);
+uint64_t king_attack_mask(uint64_t sq);
+uint64_t bishop_attack_mask(uint64_t sq, uint64_t occupancy);
+uint64_t rook_attack_mask(uint64_t sq, uint64_t occupancy);

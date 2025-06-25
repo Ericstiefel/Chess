@@ -56,7 +56,7 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
 
         if (!get_bit(all_occupied_bb, single_pawn_push_idx)) {
             if ((1ULL << single_pawn_push_idx) & promotion_rank) {
-                for (uint8_t pt = 5; pt > 1; --pt) { // top-down / bottom-up completely arbitrary
+                for (uint8_t pt = 4; pt > 1; --pt) { // top-down / bottom-up completely arbitrary
                     moves.push_back( Move(
                         PieceType::PAWN,
                         static_cast<Square>(from_sq_idx),
