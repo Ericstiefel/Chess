@@ -9,61 +9,76 @@
 #include <cmath>
 #include <iostream>
 
-bool is_in_check(const State& state){
-    uint64_t king_sq = lsb_index(state.boards[state.toMove][5]);
-
+bool is_in_check(const State& state) {
+    if (state.boards[static_cast<int>(state.toMove)][5] == 0) return false;
+    uint64_t king_sq = lsb_index(state.boards[static_cast<int>(state.toMove)][5]);
+    Color opponent = static_cast<Color>(state.toMove ^ 1);
     return is_square_attacked(state, king_sq);
 }
 
-std::vector<uint64_t> knight_attack_indices(uint64_t square) {
-    uint8_t rank = square / 8;
-    uint8_t file = square % 8;
-    std::vector<uint64_t> attacks;
-    const int deltas[8][2] = {
-        {-2, -1}, {-2, +1}, {-1, -2}, {-1, +2},
-        {+1, -2}, {+1, +2}, {+2, -1}, {+2, +1}
-    };
 
-    for (auto [dr, df] : deltas) {
-        uint8_t r = rank + dr;
-        uint8_t f = file + df;
-        if (r >= 0 && r < 8 && f >= 0 && f < 8) {
-            attacks.push_back(r * 8 + f);
-        }
+uint64_t knight_attacks_from(uint64_t square) {
+    uint64_t b = 1ULL << square;
+    uint64_t attacks = 0;
+    attacks |= (b << 17) & ~FILE_A;
+    attacks |= (b << 15) & ~FILE_H;
+    attacks |= (b << 10) & ~(FILE_A | FILE_B);
+    attacks |= (b <<  6) & ~(FILE_H | FILE_G);
+    attacks |= (b >>  6) & ~FILE_A;
+    attacks |= (b >> 10) & ~FILE_H;
+    attacks |= (b >> 15) & ~(FILE_A | FILE_B);
+    attacks |= (b >> 17) & ~(FILE_H | FILE_G);
+    return attacks;
+}
+
+
+uint64_t king_attacks_from(uint64_t square) {
+    uint64_t b = 1ULL << square;
+    uint64_t attacks = 0;
+    attacks |= (b << 8);
+    attacks |= (b >> 8);
+    attacks |= (b << 1) & ~FILE_A;
+    attacks |= (b >> 1) & ~FILE_H;
+    attacks |= (b << 9) & ~FILE_A;
+    attacks |= (b << 7) & ~FILE_H;
+    attacks |= (b >> 7) & ~FILE_A;
+    attacks |= (b >> 9) & ~FILE_H;
+    return attacks;
+}
+
+
+uint64_t pawn_attacks_from(uint64_t square, Color pawn_color) {
+    uint64_t b = 1ULL << square;
+    uint64_t attacks = 0;
+    if (pawn_color == Color::WHITE) {
+        attacks |= (b << 7) & ~FILE_H; // Attack North-West
+        attacks |= (b << 9) & ~FILE_A; // Attack North-East
+    } else {
+        attacks |= (b >> 9) & ~FILE_H; // Attack South-West
+        attacks |= (b >> 7) & ~FILE_A; // Attack South-East
     }
     return attacks;
 }
 
-std::vector<uint64_t> king_attack_indices(uint64_t square) {
-    uint8_t rank = square / 8;
-    uint8_t file = square % 8;
-    std::vector<uint64_t> attacks;
-    const int deltas[8][2] = {
-        {-1, -1}, {-1, 0}, {-1, +1},
-        { 0, -1},          { 0, +1},
-        {+1, -1}, {+1, 0}, {+1, +1}
-    };
 
-    for (auto [dr, df] : deltas) {
-        uint8_t r = rank + dr;
-        uint8_t f = file + df;
-        if (r >= 0 && r < 8 && f >= 0 && f < 8) {
-            attacks.push_back(r * 8 + f);
-        }
-    }
-    return attacks;
+uint64_t sliding_attacks(uint64_t, uint64_t, const std::vector<std::pair<int, int>>&); 
+
+uint64_t get_bishop_attacks(uint64_t square, uint64_t occupancy) {
+    return sliding_attacks(square, occupancy, {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}});
 }
 
+uint64_t get_rook_attacks(uint64_t square, uint64_t occupancy) {
+    return sliding_attacks(square, occupancy, {{-1, 0}, {1, 0}, {0, -1}, {0, 1}});
+}
+
+// Your original implementation of sliding_attacks
 uint64_t sliding_attacks(uint64_t square, uint64_t occupancy, const std::vector<std::pair<int, int>>& directions) {
     uint64_t attacks = 0;
-    uint8_t rank = square / 8;
-    uint8_t file = square % 8;
-
     for (const auto& [dr, df] : directions) {
-        uint8_t r = rank + dr;
-        uint8_t f = file + df;
+        int r = (square / 8) + dr;
+        int f = (square % 8) + df;
         while (r >= 0 && r < 8 && f >= 0 && f < 8) {
-            uint8_t idx = r * 8 + f;
+            uint64_t idx = r * 8 + f;
             attacks |= (1ULL << idx);
             if (occupancy & (1ULL << idx)) break;
             r += dr;
@@ -73,66 +88,43 @@ uint64_t sliding_attacks(uint64_t square, uint64_t occupancy, const std::vector<
     return attacks;
 }
 
-uint64_t bishop_attacks(uint64_t square, uint64_t occupancy) {
-    return sliding_attacks(square, occupancy, {
-        {-1, -1}, {-1, +1}, {+1, -1}, {+1, +1}
-    });
-}
-
-uint64_t rook_attacks(uint64_t square, uint64_t occupancy) {
-    return sliding_attacks(square, occupancy, {
-        {-1, 0}, {+1, 0}, {0, -1}, {0, +1}
-    });
-}
 
 bool is_square_attacked(const State& state, uint64_t target_idx) {
-    Color by_color = static_cast<Color>(state.toMove ^ 1);
+    Color attacker_color = static_cast<Color>(state.toMove ^ 1);
+    Color defender_color = static_cast<Color>(state.toMove);
 
-    // 1. Pawn attacks
-    uint64_t pawn_bb = state.boards[state.toMove ^ 1][0];
-    uint64_t left_attack, right_attack;
-    if (by_color == Color::WHITE) {
-        left_attack  = (1ULL << target_idx) >> 9 & ~FILE_H;
-        right_attack = (1ULL << target_idx) >> 7 & ~FILE_A;
-    } else {
-        left_attack  = (1ULL << target_idx) << 7 & ~FILE_H;
-        right_attack = (1ULL << target_idx) << 9 & ~FILE_A;
-    }
-    if (pawn_bb & (left_attack | right_attack)) return true;
 
-    // 2. Knight attacks
-    for (uint64_t knight_sq : bitscan(state.boards[state.toMove ^ 1][1])) {
-        auto attacks = knight_attack_indices(knight_sq);
-        if (std::find(attacks.begin(), attacks.end(), target_idx) != attacks.end()) return true;
+    const auto& attacker_boards_vec = state.boards[static_cast<int>(state.toMove ^ 1)];
+
+
+    if (pawn_attacks_from(target_idx, defender_color) & attacker_boards_vec[0]) {
+        return true;
     }
 
-    // 3. King attacks
-    for (uint64_t king_sq : bitscan(state.boards[state.toMove ^ 1][5])) {
-        auto attacks = king_attack_indices(king_sq);
-        if (std::find(attacks.begin(), attacks.end(), target_idx) != attacks.end()) return true;
+    if (knight_attacks_from(target_idx) & attacker_boards_vec[1]) {
+        return true;
     }
 
-    // 4. Sliding piece attacks
+    if (king_attacks_from(target_idx) & attacker_boards_vec[5]) {
+        return true;
+    }
+
+
     uint64_t occupancy = state.get_all_occupied_squares();
+    uint64_t bishop_queen = attacker_boards_vec[2] | attacker_boards_vec[4];
+    uint64_t rook_queen = attacker_boards_vec[3] | attacker_boards_vec[4];
 
-    for (int pt = 2; pt < 5; ++pt) {
-        uint64_t attacker_bb = state.boards[state.toMove ^ 1][pt];
-        for (uint64_t from_sq : bitscan(attacker_bb)) {
-            uint64_t attacks = 0;
-            if (pt == 2)
-                attacks = bishop_attacks(from_sq, occupancy);
-            else if (pt == 3)
-                attacks = rook_attacks(from_sq, occupancy);
-            else
-                attacks = bishop_attacks(from_sq, occupancy) | rook_attacks(from_sq, occupancy);
-
-            if (attacks & (1ULL << target_idx)) return true;
-        }
+    
+    if (get_bishop_attacks(target_idx, occupancy) & bishop_queen) {
+        return true;
     }
+    if (get_rook_attacks(target_idx, occupancy) & rook_queen) {
+        return true;
+    }
+
 
     return false;
 }
-
 
 uint64_t attackers_to_square(State& state, uint64_t target_sq) {
     uint64_t attackers = 0;

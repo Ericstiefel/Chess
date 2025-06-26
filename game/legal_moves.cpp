@@ -9,17 +9,18 @@
 #include <vector>
 #include <iostream>
 
-void annotate_m_w_check(State& state, std::vector<Move>& moves) { // Time/Memory tradeoff between just making state a copy and not unmaking move
-    for (Move& move: moves) {
-        
-        if (move.promotion_type != PieceType::NONE) { state.promote(move); }
-        else if (move.is_en_passant) { state.en_passant(move); }
-        else if (move.is_castle) { state.castle(move); }
-        else { state.move_pieces(move); }
+void annotate_m_w_check(State& state, std::vector<Move>& moves) {
+    for (Move& move : moves) {
 
-        move.is_check = is_in_check(state);
+        State state_copy = state;  
 
-        state.unmake_move();
+        if (move.promotion_type != PieceType::NONE) { state_copy.promote(move); }
+        else if (move.is_en_passant) { state_copy.en_passant(move); }
+        else if (move.is_castle) { state_copy.castle(move); }
+        else { state_copy.move_pieces(move); }
+
+
+        move.is_check = is_in_check(state_copy); 
 
     }
 }
@@ -27,12 +28,11 @@ void annotate_m_w_check(State& state, std::vector<Move>& moves) { // Time/Memory
 std::vector<Move> legal_moves(State& state) {
     std::vector<Move> total_moves;
 
-    uint64_t king_loc = lsb_index(state.boards[state.toMove][5]);
+    int king_loc = lsb_index(state.boards[state.toMove][5]);
     uint64_t attackers_bb = attackers_to_square(state, king_loc);
     uint8_t attackers_count = popcount(attackers_bb);
     bool in_check = attackers_count > 0;
 
-    std::cout << "In Check: " << static_cast<int>(attackers_count) << std::endl;
 
     // Add king moves
     std::vector<Move> king_moves = kingMoves(state, attackers_count);
@@ -89,7 +89,12 @@ std::vector<Move> legal_moves(State& state) {
     }
 
     for (const Move& move : candidates) {
+
         bool is_pinned = pinned(state, static_cast<uint64_t>(move.from_sq), king_loc);
+        if (static_cast<uint64_t>(move.to_sq) >= 64 || static_cast<uint64_t>(move.from_sq) >= 64) {
+            continue;
+        }
+
         uint64_t to_sq_bit = 1ULL << static_cast<uint64_t>(move.to_sq);
 
         if (in_check) {

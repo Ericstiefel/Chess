@@ -15,7 +15,7 @@ void clear_bit(uint64_t& bb, uint64_t square) {
     bb = bb & ~(1ULL << square);
 }
 
-uint64_t lsb_index(uint64_t bitboard) {
+int lsb_index(uint64_t bitboard) {
     if (bitboard == 0) return -1;
     return std::countr_zero(bitboard);
 }

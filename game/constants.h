@@ -33,6 +33,8 @@ extern const uint64_t RANK_7;
 extern const uint64_t RANK_8;
 extern const uint64_t FILE_A;
 extern const uint64_t FILE_H;
+extern const uint64_t FILE_B;
+extern const uint64_t FILE_G;
 
 extern const std::array<int, 8> KNIGHT_OFFSETS;
 
