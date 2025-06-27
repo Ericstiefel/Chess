@@ -42,13 +42,26 @@ void turn(State& state, Move& move) {
     state.move_pieces(move);
 }
 
-float game_over(const State& state, std::vector<Move>& moves) {
-    if (fifty_move_rule(state) || is_insufficient_material(state)) {
+float game_over(
+    const State& state,
+    std::vector<Move>& moves,
+    std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int>& repetition_table
+) {
+    if (is_threefold_repetition(repetition_table, state)) {
         return 0.5f;
     }
-    return check_or_stale_mate(state, moves);
 
+    if (fifty_move_rule(state)) {
+        return 0.5f;
+    }
+
+    if (is_insufficient_material(state)) {
+        return 0.5f;
+    }
+
+    return check_or_stale_mate(state, moves);
 }
+
 
 bool is_threefold_repetition(
     std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int>& repetition_table,

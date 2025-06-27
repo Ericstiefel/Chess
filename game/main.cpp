@@ -50,13 +50,12 @@ int main() {
             std::vector<Move> leg_mo = legal_moves(state);
             if (state.toMove == 0) { ++move_num; }
 
-            float result = game_over(state, leg_mo);
+            float result = game_over(state, leg_mo, repetition_table);
             if (result != 0.0) break;
 
             Move move = return_random_move(state, leg_mo);
             turn(state, move);
 
-            if (is_threefold_repetition(repetition_table, state)) break;
         }
 
     }

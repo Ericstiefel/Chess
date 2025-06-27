@@ -13,7 +13,11 @@
 #include <functional>
 
 void turn(State& state, Move& move);
-float game_over(const State& state, std::vector<Move>& moves);
+float game_over(
+    const State& state,
+    std::vector<Move>& moves,
+    std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int>& repetition_table
+);
 
 
 bool fifty_move_rule(const State& state);
