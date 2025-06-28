@@ -5,9 +5,34 @@
 #include <string>
 #include <cstdint>
 #include <optional>
+#include <unordered_map>
 
 #include "constants.h"
 #include "move.h"
+
+// Combine hash values
+inline void hash_combine(std::size_t& seed, std::size_t value) {
+    seed ^= value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
+
+namespace std {
+    template <>
+    struct std::hash<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>> {
+        std::size_t operator()(const std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>& tup) const {
+            std::size_t seed = 0;
+
+            const auto& [toMove, boards, castling, en_passant] = tup;
+
+            hash_combine(seed, std::hash<uint8_t>{}(toMove));
+            for (const auto& b : boards)
+                hash_combine(seed, std::hash<uint64_t>{}(b));
+            hash_combine(seed, std::hash<uint8_t>{}(castling));
+            hash_combine(seed, std::hash<uint64_t>{}(en_passant));
+
+            return seed;
+        }
+    };
+}
 
 struct State {
     uint8_t toMove = 0;
@@ -16,6 +41,7 @@ struct State {
     uint8_t castling; // trailing 4 bits represent castling capabilities
     Square en_passant_sq; // en passant Square (if possible)
     uint8_t fifty_move;
+    mutable std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int> repetition_table;
 
     State(); 
 

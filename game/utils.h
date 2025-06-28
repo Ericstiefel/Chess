@@ -5,6 +5,9 @@
 #include "constants.h"
 #include "bitboard.h"
 
+
+
+
 uint64_t pawn_attacks_from(uint64_t square, Color pawn_color);
 
 uint64_t knight_attacks_from(uint64_t square);

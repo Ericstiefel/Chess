@@ -11,7 +11,6 @@
 #include <iostream>
 #include <ctime>
 #include <random>
-#include <unordered_map>
 #include <chrono>
 
 
@@ -43,14 +42,13 @@ int main() {
         State state;
         state.reset();
 
-        std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int> repetition_table;
         int move_num = 0;
 
         while (true) {
             std::vector<Move> leg_mo = legal_moves(state);
             if (state.toMove == 0) { ++move_num; }
 
-            float result = game_over(state, leg_mo, repetition_table);
+            float result = game_over(state, leg_mo);
             if (result != 0.0) break;
 
             Move move = return_random_move(state, leg_mo);

@@ -1,14 +1,11 @@
 #include "turn.h"
-#include "bitboard.h"
-#include "constants.h"
-#include "bit_ops.h"
-#include "move.h"
-#include "legal_moves.h"
-#include "utils.h"
 
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <functional>
+#include <tuple>
+#include <cstdint>
 
 
 void turn(State& state, Move& move) {
@@ -43,11 +40,10 @@ void turn(State& state, Move& move) {
 }
 
 float game_over(
-    const State& state,
-    std::vector<Move>& moves,
-    std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int>& repetition_table
+    State& state,
+    std::vector<Move>& moves
 ) {
-    if (is_threefold_repetition(repetition_table, state)) {
+    if (is_threefold_repetition(state)) {
         return 0.5f;
     }
 
@@ -63,13 +59,10 @@ float game_over(
 }
 
 
-bool is_threefold_repetition(
-    std::unordered_map<std::tuple<uint8_t, std::vector<uint64_t>, uint8_t, uint64_t>, int>& repetition_table,
-    const State& state
-) {
+bool is_threefold_repetition(State& state) {
     auto hash = state.hash();
-    repetition_table[hash]++;
-    return repetition_table[hash] >= 3;
+    state.repetition_table[hash]++;
+    return state.repetition_table[hash] >= 3;
 }
 
 
