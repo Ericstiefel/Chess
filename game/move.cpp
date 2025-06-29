@@ -47,6 +47,7 @@ std::string Move::str(Color move_color) const {
 bool Move::operator==(const Move& other) const {
     return from_sq == other.from_sq &&
            to_sq == other.to_sq &&
+           is_castle == other.is_castle &&
            promotion_type == other.promotion_type;
 }
 
