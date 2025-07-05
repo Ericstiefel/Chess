@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "game_py.dir\\Release\\bindings.obj",
+            "outputs": [
+                "game_py.dir\\Release\\"
+            ],
+            "requires": []
+        }
+    ]
+}

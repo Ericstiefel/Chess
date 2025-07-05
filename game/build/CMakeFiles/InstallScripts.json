@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Erics/Documents/Chess/game/build/cmake_install.cmake",
+		"C:/Users/Erics/Documents/Chess/game/build/extern/pybind11_build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

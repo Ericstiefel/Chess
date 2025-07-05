@@ -1,0 +1,4 @@
+C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/game_py.dir
+C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Erics/Documents/Chess/game/build/extern/pybind11_build/CMakeFiles/ALL_BUILD.dir
