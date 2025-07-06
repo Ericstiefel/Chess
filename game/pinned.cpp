@@ -27,24 +27,21 @@ bool pinned(const State& state, const uint64_t piece_sq, const uint64_t king_sq)
                 }
 
                 else { 
-                    auto maybe_piece = state.piece_on_square(static_cast<Square>(current_sq_idx));
-                    auto maybe_color = state.color_on_square(static_cast<Square>(current_sq_idx));
+                    PieceType piece = state.piece_on_square(static_cast<Square>(current_sq_idx));
+                    Color color = state.color_on_square(static_cast<Square>(current_sq_idx));
 
-                    if (!maybe_piece.has_value() || !maybe_color.has_value()) break;
-
-                    PieceType attacker_piece = maybe_piece.value();
-                    Color attacker_color = maybe_color.value();
+                    if ((piece == PieceType::NONE) || (color == Color::NONE)) break;
 
 
                     uint8_t abs_dir = std::abs(direction);
 
-                    if (attacker_color != static_cast<Color>(state.toMove)) {
+                    if (color != static_cast<Color>(state.toMove)) {
                         if ((abs_dir == 1) || (abs_dir == 8)) {
-                            if ((attacker_piece == PieceType::ROOK) || (attacker_piece == PieceType::QUEEN)) { return true; }
+                            if ((piece == PieceType::ROOK) || (piece == PieceType::QUEEN)) { return true; }
                         }
 
                         if ((abs_dir == 7) || (abs_dir == 9)) {
-                            if ((attacker_piece == PieceType::BISHOP) || (attacker_piece == PieceType::QUEEN)) { return true; }
+                            if ((piece == PieceType::BISHOP) || (piece == PieceType::QUEEN)) { return true; }
                         }
 
                     }

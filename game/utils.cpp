@@ -4,14 +4,13 @@
 #include "bitboard.h"
 #include "utils.h"
 
-#include <vector>
 #include <cstdint>
 #include <cmath>
 #include <iostream>
 
 bool is_in_check(const State& state) {
-    if (state.boards[static_cast<int>(state.toMove)][5] == 0) return false;
-    uint64_t king_sq = lsb_index(state.boards[static_cast<int>(state.toMove)][5]);
+    if (state.boards[static_cast<int>(state.toMove) * 6 + 5] == 0) return false;
+    uint64_t king_sq = lsb_index(state.boards[static_cast<int>(state.toMove) * 6 + 5]);
     Color opponent = static_cast<Color>(state.toMove ^ 1);
     return is_square_attacked(state, king_sq);
 }
@@ -61,18 +60,8 @@ uint64_t pawn_attacks_from(uint64_t square, Color pawn_color) {
 }
 
 
-uint64_t sliding_attacks(uint64_t, uint64_t, const std::vector<std::pair<int, int>>&); 
-
-uint64_t get_bishop_attacks(uint64_t square, uint64_t occupancy) {
-    return sliding_attacks(square, occupancy, {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}});
-}
-
-uint64_t get_rook_attacks(uint64_t square, uint64_t occupancy) {
-    return sliding_attacks(square, occupancy, {{-1, 0}, {1, 0}, {0, -1}, {0, 1}});
-}
-
-// Your original implementation of sliding_attacks
-uint64_t sliding_attacks(uint64_t square, uint64_t occupancy, const std::vector<std::pair<int, int>>& directions) {
+template <size_t N>
+uint64_t sliding_attacks(uint64_t square, uint64_t occupancy, const std::array<std::pair<int, int>, N>& directions) {
     uint64_t attacks = 0;
     for (const auto& [dr, df] : directions) {
         int r = (square / 8) + dr;
@@ -89,30 +78,40 @@ uint64_t sliding_attacks(uint64_t square, uint64_t occupancy, const std::vector<
 }
 
 
+uint64_t get_bishop_attacks(uint64_t square, uint64_t occupancy) {
+    return sliding_attacks(square, occupancy, std::array<std::pair<int, int>, 4>{{{-1, -1}, {-1, 1}, {1, -1}, {1, 1}}});
+
+}
+
+
+uint64_t get_rook_attacks(uint64_t square, uint64_t occupancy) {
+    return sliding_attacks(square, occupancy, std::array<std::pair<int, int>, 4>{{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}});
+}
+
+
+
 bool is_square_attacked(const State& state, uint64_t target_idx) {
     Color attacker_color = static_cast<Color>(state.toMove ^ 1);
     Color defender_color = static_cast<Color>(state.toMove);
 
 
-    const auto& attacker_boards_vec = state.boards[static_cast<int>(state.toMove ^ 1)];
 
-
-    if (pawn_attacks_from(target_idx, defender_color) & attacker_boards_vec[0]) {
+    if (pawn_attacks_from(target_idx, defender_color) & state.boards[(state.toMove ^ 1) * 6]) {
         return true;
     }
 
-    if (knight_attacks_from(target_idx) & attacker_boards_vec[1]) {
+    if (knight_attacks_from(target_idx) & state.boards[(state.toMove ^ 1) * 6 + 1]) {
         return true;
     }
 
-    if (king_attacks_from(target_idx) & attacker_boards_vec[5]) {
+    if (king_attacks_from(target_idx) & state.boards[(state.toMove ^ 1) * 6 + 5]) {
         return true;
     }
 
 
     uint64_t occupancy = state.get_all_occupied_squares();
-    uint64_t bishop_queen = attacker_boards_vec[2] | attacker_boards_vec[4];
-    uint64_t rook_queen = attacker_boards_vec[3] | attacker_boards_vec[4];
+    uint64_t bishop_queen = state.boards[(state.toMove ^ 1) * 6 + 2] | state.boards[(state.toMove ^ 1) * 6 + 4];
+    uint64_t rook_queen = state.boards[(state.toMove ^ 1) * 6 + 3] | state.boards[(state.toMove ^ 1) * 6 + 4];
 
     
     if (get_bishop_attacks(target_idx, occupancy) & bishop_queen) {
@@ -134,7 +133,7 @@ uint64_t attackers_to_square(State& state, uint64_t target_sq) {
     uint64_t all_occ = state.get_all_occupied_squares();
 
     // PAWN attacks
-    uint64_t pawn_bb = state.boards[state.toMove ^ 1][0];
+    uint64_t pawn_bb = state.boards[(state.toMove ^ 1) * 6];
     if (static_cast<Color>(state.toMove ^ 1) == Color::WHITE) {
         if (target_sq >= 9 && target_sq % 8 != 0)
             attackers |= pawn_bb & (1ULL << (target_sq - 9)); // capture from SE
@@ -148,28 +147,28 @@ uint64_t attackers_to_square(State& state, uint64_t target_sq) {
     }
 
     // KNIGHT attacks
-    uint64_t knight_bb = state.boards[(state.toMove ^ 1)][1];
+    uint64_t knight_bb = state.boards[(state.toMove ^ 1) * 6 + 1];
     for (uint64_t from_sq : bitscan(knight_bb)) {
         if (knight_attack_mask(from_sq) & target_bb)
             attackers |= (1ULL << from_sq);
     }
 
     // KING attacks
-    uint64_t king_bb = state.boards[(state.toMove ^ 1)][5];
+    uint64_t king_bb = state.boards[(state.toMove ^ 1) * 6 + 5];
     for (uint64_t from_sq : bitscan(king_bb)) {
         if (king_attack_mask(from_sq) & target_bb)
             attackers |= (1ULL << from_sq);
     }
 
     // BISHOP + QUEEN (diagonal) attacks
-    uint64_t bishop_like = state.boards[(state.toMove ^ 1)][2] | state.boards[(state.toMove ^ 1)][4];
+    uint64_t bishop_like = state.boards[(state.toMove ^ 1) * 6 + 2] | state.boards[(state.toMove ^ 1) * 6 + 4];
     for (uint64_t from_sq : bitscan(bishop_like)) {
         if (bishop_attack_mask(from_sq, all_occ) & target_bb)
             attackers |= (1ULL << from_sq);
     }
 
     // ROOK + QUEEN (orthogonal) attacks
-    uint64_t rook_like = state.boards[(state.toMove ^ 1)][3] | state.boards[(state.toMove ^ 1)][4];
+    uint64_t rook_like = state.boards[(state.toMove ^ 1) * 6 + 3] | state.boards[(state.toMove ^ 1) * 6 + 4];
     for (uint64_t from_sq : bitscan(rook_like)) {
         if (rook_attack_mask(from_sq, all_occ) & target_bb)
             attackers |= (1ULL << from_sq);

@@ -21,7 +21,7 @@ enum class PieceType : int {
 };
 
 enum class Color : int {
-    WHITE = 0, BLACK = 1
+    WHITE = 0, BLACK = 1, NONE = 2
 };
 
 extern const std::array<std::array<char, 6>, 2> PIECE_SYMBOLS;

@@ -73,7 +73,7 @@ std::vector<Move> castleMoves(const State& state) {
 std::vector<Move> kingMoves(State& state, int attacker_ct) {
     std::vector<Move> moves;
 
-    uint64_t king_bb = state.boards[state.toMove][static_cast<uint8_t>(PieceType::KING)];
+    uint64_t king_bb = state.boards[state.toMove * 6 + 5];
     int from_sq_idx = lsb_index(king_bb);
 
     uint64_t own_occ = state.get_occupied_by_color(static_cast<Color>(state.toMove));

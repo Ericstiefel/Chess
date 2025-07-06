@@ -28,7 +28,7 @@ void annotate_m_w_check(State& state, std::vector<Move>& moves) {
 std::vector<Move> legal_moves(State& state) {
     std::vector<Move> total_moves;
 
-    int king_loc = lsb_index(state.boards[state.toMove][5]);
+    int king_loc = lsb_index(state.boards[state.toMove * 6 + 5]);
     uint64_t attackers_bb = attackers_to_square(state, king_loc);
     uint8_t attackers_count = popcount(attackers_bb);
     bool in_check = attackers_count > 0;
@@ -49,9 +49,8 @@ std::vector<Move> legal_moves(State& state) {
         uint64_t checker_sq = lsb_index(attackers_bb);
         valid_targets = (1ULL << checker_sq);
 
-        auto checker_piece = state.piece_on_square(static_cast<Square>(checker_sq));
-        if (checker_piece.has_value()) {
-            PieceType pt = checker_piece.value();
+        PieceType pt = state.piece_on_square(static_cast<Square>(checker_sq));
+        if (pt != PieceType::NONE) {
             if (pt == PieceType::QUEEN || pt == PieceType::ROOK || pt == PieceType::BISHOP) {
                 valid_targets |= squares_between(king_loc, checker_sq);
             }
@@ -63,27 +62,27 @@ std::vector<Move> legal_moves(State& state) {
 
     std::vector<Move> candidates;
     {
-        auto pawn_moves = pawnMoves(state, opp_occ);
+        std::vector<Move> pawn_moves = pawnMoves(state, opp_occ);
         annotate_m_w_check(state, pawn_moves);
         candidates.insert(candidates.end(), pawn_moves.begin(), pawn_moves.end());
     }
     {
-        auto knight_moves = knightMoves(state, own_occ);
+        std::vector<Move> knight_moves = knightMoves(state, own_occ);
         annotate_m_w_check(state, knight_moves);
         candidates.insert(candidates.end(), knight_moves.begin(), knight_moves.end());
     }
     {
-        auto bishop_moves = bishopMoves(state, own_occ, opp_occ);
+        std::vector<Move> bishop_moves = bishopMoves(state, own_occ, opp_occ);
         annotate_m_w_check(state, bishop_moves);
         candidates.insert(candidates.end(), bishop_moves.begin(), bishop_moves.end());
     }
     {
-        auto rook_moves = rookMoves(state, own_occ, opp_occ);
+        std::vector<Move> rook_moves = rookMoves(state, own_occ, opp_occ);
         annotate_m_w_check(state, rook_moves);
         candidates.insert(candidates.end(), rook_moves.begin(), rook_moves.end());
     }
     {
-        auto queen_moves = queenMoves(state, own_occ, opp_occ);
+        std::vector<Move> queen_moves = queenMoves(state, own_occ, opp_occ);
         annotate_m_w_check(state, queen_moves);
         candidates.insert(candidates.end(), queen_moves.begin(), queen_moves.end());
     }

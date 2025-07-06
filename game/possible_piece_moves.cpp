@@ -44,7 +44,7 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
 
     uint64_t all_occupied_bb = state.get_all_occupied_squares();
 
-    uint64_t temp_user_pawns_bb = state.boards[state.toMove][0]; 
+    uint64_t temp_user_pawns_bb = state.boards[state.toMove * 6]; 
 
     while (temp_user_pawns_bb){
         uint64_t from_sq_idx = lsb_index(temp_user_pawns_bb);
@@ -157,7 +157,7 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
 std::vector<Move> knightMoves(const State& state, const uint64_t& own_occupied_bb){
     std::vector<Move> moves;
 
-    uint64_t temp_knights_bb = state.boards[state.toMove][static_cast<uint8_t>(PieceType::KNIGHT)];
+    uint64_t temp_knights_bb = state.boards[state.toMove * 6 + static_cast<uint8_t>(PieceType::KNIGHT)];
 
     while (temp_knights_bb) {
         uint64_t from_sq_idx = lsb_index(temp_knights_bb);
@@ -196,7 +196,7 @@ std::vector<Move> knightMoves(const State& state, const uint64_t& own_occupied_b
 
 std::vector<Move> bishopMoves(const State& state, const uint64_t& own_occupied_bb, const uint64_t& opp_occupied_bb) {
     std::vector<Move> moves;
-    uint64_t temp_bishop_bb = state.boards[state.toMove][2];
+    uint64_t temp_bishop_bb = state.boards[state.toMove * 6 + 2];
 
     int directions[4] = {9, 7, -9, -7};
 
@@ -249,7 +249,7 @@ std::vector<Move> bishopMoves(const State& state, const uint64_t& own_occupied_b
 std::vector<Move> rookMoves(const State& state, const uint64_t& own_occupied_bb, const uint64_t& opp_occupied_bb) {
     std::vector<Move> moves;
 
-    uint64_t temp_rook_bb = state.boards[state.toMove][3];
+    uint64_t temp_rook_bb = state.boards[state.toMove * 6 + 3];
 
     int directions[4] = {8, 1, -1, -8};
 
@@ -293,7 +293,7 @@ std::vector<Move> rookMoves(const State& state, const uint64_t& own_occupied_bb,
 std::vector<Move> queenMoves(const State& state, const uint64_t& own_occupied_bb, const uint64_t& opp_occupied_bb) {
     std::vector<Move> moves;
 
-    uint64_t temp_queen_bb = state.boards[state.toMove][4];
+    uint64_t temp_queen_bb = state.boards[state.toMove * 6 + 4];
 
     int directions[8] = {8, -8, 1, -1, 9, -9, 7, -7};
 

@@ -1,42 +1,54 @@
 #include "bit_ops.h"
-#include <bit>       
-#include <algorithm> 
+#include <vector>
+#include <cstdint>
 
 uint64_t get_bit(uint64_t bb, uint64_t square) {
     return (bb >> square) & 1;
 }
 
 void set_bit(uint64_t& bb, uint64_t square) {
-    bb |= (1ULL << square); 
+    bb |= (1ULL << square);
 }
-
 
 void clear_bit(uint64_t& bb, uint64_t square) {
-    bb = bb & ~(1ULL << square);
+    bb &= ~(1ULL << square);
 }
 
-int lsb_index(uint64_t bitboard) {
-    if (bitboard == 0) return -1;
-    return std::countr_zero(bitboard);
+// Portable lsb_index (count trailing zeros)
+int lsb_index(uint64_t bb) {
+    if (bb == 0) return -1;
+    int idx = 0;
+    while ((bb & 1) == 0) {
+        bb >>= 1;
+        idx++;
+    }
+    return idx;
 }
 
-uint64_t msb_index(uint64_t bitboard) {
-    if (bitboard == 0) return -1;
-    return 63 - std::countl_zero(bitboard);
+// Portable msb_index (position of highest set bit)
+int msb_index(uint64_t bb) {
+    if (bb == 0) return -1;
+    int idx = 0;
+    while (bb >>= 1) {
+        ++idx;
+    }
+    return idx;
 }
 
+// Portable popcount (Hamming weight)
 uint64_t popcount(uint64_t bb) {
-    return std::popcount(bb);
-}
-
-uint64_t bitScanForward(uint64_t bb) {
-    return lsb_index(bb);
+    uint64_t count = 0;
+    while (bb) {
+        bb &= (bb - 1);
+        ++count;
+    }
+    return count;
 }
 
 std::vector<uint64_t> bitscan(uint64_t bb) {
     std::vector<uint64_t> indices;
     while (bb) {
-        int idx = std::countr_zero(bb);
+        int idx = lsb_index(bb);
         indices.push_back(idx);
         bb &= bb - 1;
     }
@@ -46,7 +58,7 @@ std::vector<uint64_t> bitscan(uint64_t bb) {
 std::vector<Square> bitboard_to_squares(uint64_t bb) {
     std::vector<Square> squares;
     while (bb) {
-        uint64_t sq_idx = std::countr_zero(bb);
+        int sq_idx = lsb_index(bb);
         squares.push_back(static_cast<Square>(sq_idx));
         bb &= bb - 1;
     }
