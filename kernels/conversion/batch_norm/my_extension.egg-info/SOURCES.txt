@@ -1,0 +1,9 @@
+batch_norm_api.cpp
+batch_norm_cuda.cu
+setup.py
+./__init__.py
+./batch_norm_cuda.py
+my_extension.egg-info/PKG-INFO
+my_extension.egg-info/SOURCES.txt
+my_extension.egg-info/dependency_links.txt
+my_extension.egg-info/top_level.txt

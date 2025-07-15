@@ -1,0 +1,7 @@
+conv4d.cu
+conv4d_api.cpp
+setup.py
+conv4d_cpp.egg-info/PKG-INFO
+conv4d_cpp.egg-info/SOURCES.txt
+conv4d_cpp.egg-info/dependency_links.txt
+conv4d_cpp.egg-info/top_level.txt

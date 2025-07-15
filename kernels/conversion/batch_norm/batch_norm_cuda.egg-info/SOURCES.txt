@@ -1,0 +1,7 @@
+batch_norm_api.cpp
+batch_norm_cuda.cu
+setup.py
+batch_norm_cuda.egg-info/PKG-INFO
+batch_norm_cuda.egg-info/SOURCES.txt
+batch_norm_cuda.egg-info/dependency_links.txt
+batch_norm_cuda.egg-info/top_level.txt

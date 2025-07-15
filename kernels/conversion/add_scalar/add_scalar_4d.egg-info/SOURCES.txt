@@ -1,0 +1,7 @@
+add_scalar_4d.cpp
+add_scalar_4d.cu
+setup.py
+add_scalar_4d.egg-info/PKG-INFO
+add_scalar_4d.egg-info/SOURCES.txt
+add_scalar_4d.egg-info/dependency_links.txt
+add_scalar_4d.egg-info/top_level.txt
