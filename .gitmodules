@@ -1,6 +1,0 @@
-[submodule "game/extern/pybind11"]
-	path = game/extern/pybind11
-	url = https://github.com/pybind/pybind11.git
-[submodule "extern/pybind11"]
-	path = extern/pybind11
-	url = https://github.com/pybind/pybind11.git
