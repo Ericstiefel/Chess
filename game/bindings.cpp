@@ -25,7 +25,6 @@ PYBIND11_MODULE(game_py, m) {
     m.def("lsb_index", &lsb_index);
     m.def("msb_index", &msb_index);
     m.def("popcount", &popcount);
-    m.def("bitScanForward", &bitScanForward);
     m.def("bitscan", &bitscan);
     m.def("bitboard_to_squares", &bitboard_to_squares);
 
@@ -111,6 +110,7 @@ PYBIND11_MODULE(game_py, m) {
         .def("hash", &State::hash)
         .def("reset", &State::reset)
         .def("printBoard", &State::printBoard)
+        .def("get_string_key", &State::get_string_key)
         .def("get_all_occupied_squares", &State::get_all_occupied_squares)
         .def("get_occupied_by_color", &State::get_occupied_by_color)
         .def("piece_on_square", &State::piece_on_square)

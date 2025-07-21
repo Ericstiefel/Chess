@@ -40,18 +40,19 @@ namespace std {
 
 struct State {
     uint8_t toMove = 0;
-    uint64_t boards[12];
+    std::array<uint64_t, 12> boards;
     std::vector<std::tuple<Move, PieceType, uint8_t, Square, uint8_t>> moves; // Move, captured_piece, castling, en_passant, fifty_moves 
     uint8_t castling; // trailing 4 bits represent castling capabilities
     Square en_passant_sq; // en passant Square (if possible)
     uint8_t fifty_move;
-    mutable std::unordered_map<std::tuple<uint8_t, std::array<uint64_t, 12>, uint8_t, uint64_t>, int> repetition_table;
+    std::unordered_map<std::string, int> repetition_table;
 
     State(); 
 
     std::string str() const;
     bool operator==(const State& other) const;
     std::tuple<uint8_t, std::array<uint64_t, 12>, uint8_t, uint64_t> hash() const;
+    std::string get_string_key() const;
 
     void reset();
     void printBoard() const;

@@ -10,6 +10,5 @@ void clear_bit(uint64_t& bb, uint64_t square);
 int lsb_index(uint64_t bitboard);
 int msb_index(uint64_t bitboard);
 uint64_t popcount(uint64_t bb);
-uint64_t bitScanForward(uint64_t bb);
 std::vector<uint64_t> bitscan(uint64_t bb);
 std::vector<Square> bitboard_to_squares(uint64_t bb);

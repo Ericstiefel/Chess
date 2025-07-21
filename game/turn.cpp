@@ -59,7 +59,7 @@ float game_over(
 
 
 bool is_threefold_repetition(State& state) {
-    std::tuple<uint8_t, std::array<uint64_t, 12>, uint8_t, uint64_t> hash = state.hash();
+    std::string hash = state.get_string_key();
     state.repetition_table[hash]++;
     return state.repetition_table[hash] >= 3;
 }

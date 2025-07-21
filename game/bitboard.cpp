@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <optional>
+#include <string>
+#include <sstream>
 
 State::State() 
     : toMove(0),
@@ -14,6 +16,24 @@ State::State()
 std::string State::str() const {
     printBoard();
     return ""; 
+}
+
+std::string State::get_string_key() const {
+    std::stringstream key_stream;
+
+    // 1. Add the player to move
+    key_stream << static_cast<int>(toMove);
+
+    // 2. Add all the bitboards
+    for (int i = 0; i < 12; ++i) {
+        key_stream << "_" << boards[i];
+    }
+
+    // 3. Add castling rights and en passant square
+    key_stream << "_" << static_cast<int>(castling);
+    key_stream << "_" << static_cast<int>(en_passant_sq);
+
+    return key_stream.str();
 }
 
 std::tuple<uint8_t, std::array<uint64_t, 12>, uint8_t, uint64_t> State::hash() const {
