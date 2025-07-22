@@ -170,6 +170,18 @@ void State::move_pieces(const Move move) {
     clear_bit(bb, static_cast<int>(move.from_sq));
     set_bit(bb, static_cast<int>(move.to_sq));
 
+    if (move.piece_type == PieceType::PAWN) {
+        if (std::abs(static_cast<int>(move.from_sq) - static_cast<int>(move.to_sq)) == 16) {
+            int offset = (static_cast<Color>(toMove) == Color::WHITE ? -8 : 8);
+            en_passant_sq = static_cast<Square>(static_cast<int>(move.to_sq) + offset);
+        } else {
+            en_passant_sq = Square::NO_SQUARE;
+        }
+    } else {
+        en_passant_sq = Square::NO_SQUARE;
+    }
+
+
     toMove ^= 1;
 }
 

@@ -18,13 +18,13 @@ events:
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
       Compiler:  
-      Build flags: 
+      Build flags: /DWIN32;/D_WINDOWS;/W3;/GR;/EHsc
       Id flags:  
       
       The output was:
       0
       MSBuild version 17.14.10+8b8e13593 for .NET Framework
-      Build started 7/16/2025 7:25:29 PM.
+      Build started 7/22/2025 10:53:21 AM.
       
       Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\4.0.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -53,7 +53,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.55
+      Time Elapsed 00:00:00.28
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -72,8 +72,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-kce9un"
-      binary: "C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-kce9un"
+      source: "C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-4195vh"
+      binary: "C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-4195vh"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -83,40 +83,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-kce9un'
+        Change Dir: 'C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-4195vh'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f39e3.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3d7f1.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.10+8b8e13593 for .NET Framework
-        Build started 7/16/2025 7:25:29 PM.
+        Build started 7/22/2025 10:53:22 AM.
         
-        Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-kce9un\\cmTC_f39e3.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4195vh\\cmTC_3d7f1.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_f39e3.dir\\Debug\\".
+          Creating directory "cmTC_3d7f1.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-kce9un\\Debug\\".
-          Creating directory "cmTC_f39e3.dir\\Debug\\cmTC_f39e3.tlog\\".
+          Creating directory "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4195vh\\Debug\\".
+          Creating directory "cmTC_3d7f1.dir\\Debug\\cmTC_3d7f1.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_f39e3.dir\\Debug\\cmTC_f39e3.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_f39e3.dir\\Debug\\cmTC_f39e3.tlog\\unsuccessfulbuild".
+          Creating "cmTC_3d7f1.dir\\Debug\\cmTC_3d7f1.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_3d7f1.dir\\Debug\\cmTC_3d7f1.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_f39e3.dir\\Debug\\\\" /Fd"cmTC_f39e3.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\cmake\\data\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_3d7f1.dir\\Debug\\\\" /Fd"cmTC_3d7f1.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\cmake\\data\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_f39e3.dir\\Debug\\\\" /Fd"cmTC_f39e3.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\cmake\\data\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_3d7f1.dir\\Debug\\\\" /Fd"cmTC_3d7f1.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\cmake\\data\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-kce9un\\Debug\\cmTC_f39e3.exe" /INCREMENTAL /ILK:"cmTC_f39e3.dir\\Debug\\cmTC_f39e3.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-kce9un/Debug/cmTC_f39e3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-kce9un/Debug/cmTC_f39e3.lib" /MACHINE:X64  /machine:x64 cmTC_f39e3.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_f39e3.vcxproj -> C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-kce9un\\Debug\\cmTC_f39e3.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4195vh\\Debug\\cmTC_3d7f1.exe" /INCREMENTAL /ILK:"cmTC_3d7f1.dir\\Debug\\cmTC_3d7f1.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-4195vh/Debug/cmTC_3d7f1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-4195vh/Debug/cmTC_3d7f1.lib" /MACHINE:X64  /machine:x64 cmTC_3d7f1.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_3d7f1.vcxproj -> C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4195vh\\Debug\\cmTC_3d7f1.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_f39e3.dir\\Debug\\cmTC_f39e3.tlog\\unsuccessfulbuild".
-          Touching "cmTC_f39e3.dir\\Debug\\cmTC_f39e3.tlog\\cmTC_f39e3.lastbuildstate".
-        Done Building Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-kce9un\\cmTC_f39e3.vcxproj" (default targets).
+          Deleting file "cmTC_3d7f1.dir\\Debug\\cmTC_3d7f1.tlog\\unsuccessfulbuild".
+          Touching "cmTC_3d7f1.dir\\Debug\\cmTC_3d7f1.tlog\\cmTC_3d7f1.lastbuildstate".
+        Done Building Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4195vh\\cmTC_3d7f1.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.30
+        Time Elapsed 00:00:00.28
         
       exitCode: 0
   -
@@ -147,85 +147,4 @@ events:
       Running the CXX compiler's linker: "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe" "-v"
       Microsoft (R) Incremental Linker Version 14.44.35211.0
       Copyright (C) Microsoft Corporation.  All rights reserved.
-...
-
----
-events:
-  -
-    kind: "try_compile-v1"
-    backtrace:
-      - "C:/Users/Erics/AppData/Local/Programs/Python/Python313/Lib/site-packages/cmake/data/share/cmake-4.0/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
-      - "C:/Users/Erics/AppData/Local/Programs/Python/Python313/Lib/site-packages/cmake/data/share/cmake-4.0/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
-      - "C:/Users/Erics/AppData/Local/Programs/Python/Python313/Lib/site-packages/cmake/data/share/cmake-4.0/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
-      - "C:/Users/Erics/Documents/Chess/extern/pybind11/tools/pybind11Common.cmake:321 (check_cxx_compiler_flag)"
-      - "C:/Users/Erics/Documents/Chess/extern/pybind11/tools/pybind11Common.cmake:388 (_pybind11_return_if_cxx_and_linker_flags_work)"
-      - "C:/Users/Erics/Documents/Chess/extern/pybind11/tools/pybind11Common.cmake:422 (_pybind11_generate_lto)"
-      - "C:/Users/Erics/Documents/Chess/extern/pybind11/CMakeLists.txt:296 (include)"
-    checks:
-      - "Performing Test HAS_MSVC_GL_LTCG"
-    directories:
-      source: "C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-ixymyt"
-      binary: "C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-ixymyt"
-    cmakeVariables:
-      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-      CMAKE_POSITION_INDEPENDENT_CODE: "ON"
-    buildResult:
-      variable: "HAS_MSVC_GL_LTCG"
-      cached: true
-      stdout: |
-        Change Dir: 'C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-ixymyt'
-        
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_694a8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
-        MSBuild version 17.14.10+8b8e13593 for .NET Framework
-        Build started 7/16/2025 7:29:37 PM.
-        
-        Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\cmTC_694a8.vcxproj" on node 1 (default targets).
-        PrepareForBuild:
-          Creating directory "cmTC_694a8.dir\\Debug\\".
-          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\Debug\\".
-          Creating directory "cmTC_694a8.dir\\Debug\\cmTC_694a8.tlog\\".
-        InitializeBuildStatus:
-          Creating "cmTC_694a8.dir\\Debug\\cmTC_694a8.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_694a8.dir\\Debug\\cmTC_694a8.tlog\\unsuccessfulbuild".
-        SetModuleDependencies:
-          Creating directory "cmTC_694a8.dir\\Debug\\cmTC_694a8_MD.tlog\\".
-          Scanning sources for module dependencies...
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /FS /Od /Ob0 /GL /D _MBCS /D WIN32 /D _WINDOWS /D HAS_MSVC_GL_LTCG /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++20 /ifcOutput "cmTC_694a8.dir\\Debug\\\\" /scanDependencies "cmTC_694a8.dir\\Debug\\\\" /Fo"cmTC_694a8.dir\\Debug\\\\" /Fd"cmTC_694a8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\src.cxx"
-          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
-          Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /FS /Od /Ob0 /GL /D _MBCS /D WIN32 /D _WINDOWS /D HAS_MSVC_GL_LTCG /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++20 /ifcOutput "cmTC_694a8.dir\\Debug\\\\" /scanDependencies "cmTC_694a8.dir\\Debug\\\\" /Fo"cmTC_694a8.dir\\Debug\\\\" /Fd"cmTC_694a8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\src.cxx"
-          src.cxx
-        ClCompile:
-          Compiling...
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /FS /Od /Ob0 /GL /D _MBCS /D WIN32 /D _WINDOWS /D HAS_MSVC_GL_LTCG /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++20 /ifcOutput "cmTC_694a8.dir\\Debug\\\\" /Fo"cmTC_694a8.dir\\Debug\\\\" /Fd"cmTC_694a8.dir\\Debug\\vc143.pdb" /sourceDependencies "cmTC_694a8.dir\\Debug\\.d.json" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\src.cxx"
-          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
-          Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /FS /Od /Ob0 /GL /D _MBCS /D WIN32 /D _WINDOWS /D HAS_MSVC_GL_LTCG /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++20 /ifcOutput "cmTC_694a8.dir\\Debug\\\\" /Fo"cmTC_694a8.dir\\Debug\\\\" /Fd"cmTC_694a8.dir\\Debug\\vc143.pdb" /sourceDependencies "cmTC_694a8.dir\\Debug\\.d.json" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\src.cxx"
-          src.cxx
-        Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\Debug\\cmTC_694a8.exe" /INCREMENTAL /ILK:"cmTC_694a8.dir\\Debug\\cmTC_694a8.ilk" /NOLOGO "-LTCG" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-ixymyt/Debug/cmTC_694a8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Erics/Documents/Chess/game/build/CMakeFiles/CMakeScratch/TryCompile-ixymyt/Debug/cmTC_694a8.lib" /MACHINE:X64  /machine:x64 cmTC_694a8.dir\\Debug\\src.obj
-        LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification [C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\cmTC_694a8.vcxproj]
-          Generating code
-          Finished generating code
-          cmTC_694a8.vcxproj -> C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\Debug\\cmTC_694a8.exe
-        FinalizeBuildStatus:
-          Deleting file "cmTC_694a8.dir\\Debug\\cmTC_694a8.tlog\\unsuccessfulbuild".
-          Touching "cmTC_694a8.dir\\Debug\\cmTC_694a8.tlog\\cmTC_694a8.lastbuildstate".
-        Done Building Project "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\cmTC_694a8.vcxproj" (default targets).
-        
-        Build succeeded.
-        
-        "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\cmTC_694a8.vcxproj" (default target) (1) ->
-        (Link target) -> 
-          LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification [C:\\Users\\Erics\\Documents\\Chess\\game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ixymyt\\cmTC_694a8.vcxproj]
-        
-            1 Warning(s)
-            0 Error(s)
-        
-        Time Elapsed 00:00:00.74
-        
-      exitCode: 0
 ...

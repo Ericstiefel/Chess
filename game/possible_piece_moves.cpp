@@ -95,9 +95,9 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
                 continue;
             }
 
-            if (((from_sq_idx - target_sq_idx) % 8 == 1) && (get_bit(opp_occupied_bb, target_sq_idx))) {
+            if (get_bit(opp_occupied_bb, target_sq_idx)) {
                 if ((1ULL << target_sq_idx) & promotion_rank) {
-                    for (uint8_t pt = 5; pt < 1; --pt) { 
+                    for (uint8_t pt = 4; pt < 1; --pt) { 
                         moves.push_back( Move(
                             PieceType::PAWN,
                             static_cast<Square>(from_sq_idx),
@@ -113,7 +113,8 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
                     moves.push_back( Move(
                         PieceType::PAWN,
                         static_cast<Square>(from_sq_idx),
-                        static_cast<Square>(target_sq_idx)
+                        static_cast<Square>(target_sq_idx),
+                        true
                     ));
                 }
             }
@@ -122,18 +123,25 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
         // En Passant
         if (state.en_passant_sq != Square::NO_SQUARE) {
             uint64_t ep_tgt_sq = static_cast<uint64_t>(state.en_passant_sq);
-            uint8_t row = from_sq_idx / 8;
-            uint8_t tgt_row;
-            if (static_cast<Color>(state.toMove) == Color::WHITE) { tgt_row = 4; }
-            else { tgt_row = 3; }
+            uint8_t tgt_row = ep_tgt_sq / 8;
 
-            int offset_arr[2] = {attack_left, attack_right};
+            bool is_white = state.toMove == 0;
+            if ((is_white && tgt_row == 5) || (!is_white && tgt_row == 2)) {
+                int ep_offsets[2] = {attack_left, attack_right};
 
-            if (row == tgt_row) {
-                for (int offset_idx = 0; offset_idx < 2; ++offset_idx){
-                    if (from_sq_idx + offset_arr[offset_idx] == ep_tgt_sq) {
+                for (int i = 0; i < 2; ++i) {
+                    int offset = ep_offsets[i];
+                    uint64_t candidate_sq = from_sq_idx + offset;
+
+                    // Prevent wraparound across files
+                    if ((offset == attack_left && ((1ULL << from_sq_idx) & FILE_A)) ||
+                        (offset == attack_right && ((1ULL << from_sq_idx) & FILE_H))) {
+                        continue;
+                    }
+
+                    if (candidate_sq == ep_tgt_sq) {
                         moves.push_back( Move(
-                            PieceType::PAWN, 
+                            PieceType::PAWN,
                             static_cast<Square>(from_sq_idx),
                             static_cast<Square>(ep_tgt_sq),
                             true,
@@ -148,6 +156,7 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
         }
 
     }
+
 
     return moves;
 

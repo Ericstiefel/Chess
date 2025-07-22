@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "game_py.dir\\Debug\\legal_king_moves.obj",
+            "outputs": [
+                "C:\\Users\\Erics\\Documents\\Chess\\game\\build\\game_py.dir\\Debug\\vc143.pdb",
+                "game_py.dir\\Debug\\"
+            ],
+            "requires": []
+        }
+    ]
+}

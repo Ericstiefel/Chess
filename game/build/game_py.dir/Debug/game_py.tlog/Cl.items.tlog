@@ -1,0 +1,11 @@
+C:\Users\Erics\Documents\Chess\game\bindings.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\bindings.obj
+C:\Users\Erics\Documents\Chess\game\bit_ops.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\bit_ops.obj
+C:\Users\Erics\Documents\Chess\game\constants.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\constants.obj
+C:\Users\Erics\Documents\Chess\game\utils.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\utils.obj
+C:\Users\Erics\Documents\Chess\game\move.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\move.obj
+C:\Users\Erics\Documents\Chess\game\bitboard.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\bitboard.obj
+C:\Users\Erics\Documents\Chess\game\possible_piece_moves.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\possible_piece_moves.obj
+C:\Users\Erics\Documents\Chess\game\legal_moves.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\legal_moves.obj
+C:\Users\Erics\Documents\Chess\game\legal_king_moves.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\legal_king_moves.obj
+C:\Users\Erics\Documents\Chess\game\pinned.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\pinned.obj
+C:\Users\Erics\Documents\Chess\game\turn.cpp;C:\Users\Erics\Documents\Chess\game\build\game_py.dir\Debug\turn.obj
