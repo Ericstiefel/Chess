@@ -88,11 +88,12 @@ std::vector<Move> legal_moves(State& state) {
     }
 
     for (const Move& move : candidates) {
-
-        bool is_pinned = pinned(state, static_cast<uint64_t>(move.from_sq), king_loc);
         if (static_cast<uint64_t>(move.to_sq) >= 64 || static_cast<uint64_t>(move.from_sq) >= 64) {
             continue;
         }
+
+        bool is_pinned = pinned(state, static_cast<uint64_t>(move.from_sq), king_loc);
+        
 
         uint64_t to_sq_bit = 1ULL << static_cast<uint64_t>(move.to_sq);
 

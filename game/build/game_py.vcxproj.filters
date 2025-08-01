@@ -4,6 +4,9 @@
     <ClCompile Include="C:\Users\Erics\Documents\Chess\game\bindings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Erics\Documents\Chess\game\move_map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Erics\Documents\Chess\game\bit_ops.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

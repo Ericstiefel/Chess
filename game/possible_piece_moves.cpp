@@ -5,7 +5,6 @@
 #include "bit_ops.h"
 
 #include <vector>
-#include <iostream>
 #include <optional>
 #include <cstdlib>
 #include <cmath>
@@ -13,7 +12,6 @@
 
 
 std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb){
-
     std::vector<Move> moves;
 
     int forward_one, forward_two, attack_left, attack_right;
@@ -97,7 +95,7 @@ std::vector<Move> pawnMoves(const State& state, const uint64_t& opp_occupied_bb)
 
             if (get_bit(opp_occupied_bb, target_sq_idx)) {
                 if ((1ULL << target_sq_idx) & promotion_rank) {
-                    for (uint8_t pt = 4; pt < 1; --pt) { 
+                    for (uint8_t pt = 4; pt > 1; --pt) { 
                         moves.push_back( Move(
                             PieceType::PAWN,
                             static_cast<Square>(from_sq_idx),

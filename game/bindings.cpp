@@ -2,6 +2,7 @@
 #include <pybind11/stl.h>
 #include <pybind11/operators.h>
 
+#include "move_map.h"
 #include "bit_ops.h"
 #include "constants.h"
 #include "utils.h"
@@ -162,4 +163,15 @@ PYBIND11_MODULE(game_py, m) {
     m.def("count_pieces", &count_pieces);
     m.def("is_insufficient_material", &is_insufficient_material);
     m.def("is_threefold_repetition", &is_threefold_repetition);
+
+    // ----- MoveMapping bindings -----
+    m.def("load_move_map", &load_move_map_from_python, 
+          "Loads the move-to-index map from a file into the C++ backend.");
+
+    m.def("move_to_idx", &get_index_for_move_from_python, 
+          "Gets the unique index for a move object.");
+
+    m.def("idx_to_move", &get_move_for_index_from_python, 
+          "Gets the move object for a unique index.");
+    
 }

@@ -6,7 +6,6 @@
 
 #include <cstdint>
 #include <cmath>
-#include <iostream>
 
 bool is_in_check(const State& state) {
     if (state.boards[static_cast<int>(state.toMove) * 6 + 5] == 0) return false;

@@ -6,7 +6,18 @@
 
 #include <cmath>
 
+bool quick_pin_check(const uint64_t king_sq, const uint64_t piece_sq) {
+    const int king_rk = king_sq / 8;
+    const int king_fl = king_sq % 8;
+    const int piece_rk = piece_sq / 8;
+    const int piece_fl = piece_sq % 8;
+
+    if (king_rk == piece_rk || king_fl == piece_fl) { return true;}
+    return std::abs(king_rk - piece_rk) == std::abs(king_fl == piece_fl);
+}
+
 bool pinned(const State& state, const uint64_t piece_sq, const uint64_t king_sq) {
+    if (quick_pin_check(king_sq, piece_sq)) { return true;}
     int ray_directions[8] = {-8, -7, 1, 9, 8, 7, -1, -9};
 
     uint64_t all_occ = state.get_all_occupied_squares();

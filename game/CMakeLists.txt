@@ -11,6 +11,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/../extern/pybind11 extern/pybind11_build)
 # Source files for your chess engine
 set(SOURCES
     bindings.cpp
+    move_map.cpp
     bit_ops.cpp
     constants.cpp
     utils.cpp
