@@ -1,0 +1,5 @@
+C:/Users/Erics/Documents/Chess/models/mapping/CMakeFiles/model_trainer.dir
+C:/Users/Erics/Documents/Chess/models/mapping/CMakeFiles/mcts_module.dir
+C:/Users/Erics/Documents/Chess/models/mapping/CMakeFiles/alphanet_module.dir
+C:/Users/Erics/Documents/Chess/models/mapping/CMakeFiles/ALL_BUILD.dir
+C:/Users/Erics/Documents/Chess/models/mapping/CMakeFiles/ZERO_CHECK.dir

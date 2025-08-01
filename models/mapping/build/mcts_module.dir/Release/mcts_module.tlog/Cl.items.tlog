@@ -1,0 +1,13 @@
+C:\Users\Erics\Documents\Chess\models\AlphaGoZero\mcts.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\mcts.obj
+C:\Users\Erics\Documents\Chess\models\AlphaGoZero\alphanet.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\alphanet.obj
+C:\Users\Erics\Documents\Chess\models\mapping\index_to_move.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\index_to_move.obj
+C:\Users\Erics\Documents\Chess\game\bitboard.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\bitboard.obj
+C:\Users\Erics\Documents\Chess\game\move.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\move.obj
+C:\Users\Erics\Documents\Chess\game\legal_moves.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\legal_moves.obj
+C:\Users\Erics\Documents\Chess\game\turn.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\turn.obj
+C:\Users\Erics\Documents\Chess\game\constants.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\constants.obj
+C:\Users\Erics\Documents\Chess\game\legal_king_moves.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\legal_king_moves.obj
+C:\Users\Erics\Documents\Chess\game\pinned.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\pinned.obj
+C:\Users\Erics\Documents\Chess\game\possible_piece_moves.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\possible_piece_moves.obj
+C:\Users\Erics\Documents\Chess\game\utils.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\utils.obj
+C:\Users\Erics\Documents\Chess\game\bit_ops.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\mcts_module.dir\Release\bit_ops.obj

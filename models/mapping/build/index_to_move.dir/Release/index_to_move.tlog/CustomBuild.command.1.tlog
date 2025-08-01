@@ -1,0 +1,10 @@
+^C:\USERS\ERICS\DOCUMENTS\CHESS\MODELS\MAPPING\CMAKELISTS.TXT
+setlocal
+C:\Users\Erics\AppData\Local\Programs\Python\Python313\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/Erics/Documents/Chess/models/mapping -BC:/Users/Erics/Documents/Chess/models/mapping/build --check-stamp-file C:/Users/Erics/Documents/Chess/models/mapping/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

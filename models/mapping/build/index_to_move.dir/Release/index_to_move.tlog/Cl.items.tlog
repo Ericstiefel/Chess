@@ -1,0 +1,11 @@
+C:\Users\Erics\Documents\Chess\models\mapping\index_to_move.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\index_to_move.obj
+C:\Users\Erics\Documents\Chess\game\bitboard.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\bitboard.obj
+C:\Users\Erics\Documents\Chess\game\move.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\move.obj
+C:\Users\Erics\Documents\Chess\game\legal_moves.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\legal_moves.obj
+C:\Users\Erics\Documents\Chess\game\turn.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\turn.obj
+C:\Users\Erics\Documents\Chess\game\constants.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\constants.obj
+C:\Users\Erics\Documents\Chess\game\legal_king_moves.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\legal_king_moves.obj
+C:\Users\Erics\Documents\Chess\game\pinned.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\pinned.obj
+C:\Users\Erics\Documents\Chess\game\possible_piece_moves.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\possible_piece_moves.obj
+C:\Users\Erics\Documents\Chess\game\utils.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\utils.obj
+C:\Users\Erics\Documents\Chess\game\bit_ops.cpp;C:\Users\Erics\Documents\Chess\models\mapping\build\index_to_move.dir\Release\bit_ops.obj

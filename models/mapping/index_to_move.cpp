@@ -12,6 +12,20 @@
 #include "../../game/legal_moves.h"
 #include "index_to_move.h"
 
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+
+namespace py = pybind11;
+
+
+PYBIND11_MODULE(index_to_move, m) {
+    m.def("generate_all_moves", &generate_all_moves);
+    m.def("save_index_to_move", &save_index_to_move);
+    m.def("load_index_to_move", &load_index_to_move);
+    m.def("move_to_idx", &move_to_idx);
+}
+
+
 Move index_to_move[1972];
 void generate_all_moves() {
     int index = 0;
@@ -33,6 +47,7 @@ void generate_all_moves() {
 
         for (const Move& m : moves) {
             index_to_move[index++] = m;
+
         }
     }
     std::cout << "Index: " << index << std::endl;
@@ -115,31 +130,4 @@ void save_index_to_move(const std::string& filename) {
     }
 
     out.close();
-}
-
-
-// To load it back later: 
-void load_index_to_move(const std::string& filename) {
-    std::ifstream in(filename);
-    int idx, piece_type, from_sq, to_sq, is_capture, promotion_type, is_castle, is_en_passant;
-
-    while (in >> idx >> piece_type >> from_sq >> to_sq >> is_capture >> promotion_type >> is_castle >> is_en_passant) {
-        index_to_move[idx] = Move(
-            static_cast<PieceType>(piece_type),
-            static_cast<Square>(from_sq),
-            static_cast<Square>(to_sq),
-            is_capture,
-            static_cast<PieceType>(promotion_type),
-            is_castle,
-            false, // check: added on later
-            false  // is_en_passant: added on later            
-        );
-    }
-}
-
-
-int main() {
-    generate_all_moves();
-    save_index_to_move("index_to_move.txt");
-    return 0;
 }

@@ -1,0 +1,10 @@
+^C:\USERS\ERICS\DOCUMENTS\CHESS\MODELS\MAPPING\BUILD\CMAKEFILES\035F4626FC36B9D780E0F0DD6105C5C6\GENERATE.STAMP.RULE
+setlocal
+C:\Users\Erics\AppData\Local\Programs\Python\Python313\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/Erics/Documents/Chess/models/mapping -BC:/Users/Erics/Documents/Chess/models/mapping/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Erics/Documents/Chess/models/mapping/build/ChessModels.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,5 @@
+C:/Users/Erics/Documents/Chess/models/mapping/build/CMakeFiles/index_to_move.dir
+C:/Users/Erics/Documents/Chess/models/mapping/build/CMakeFiles/mcts_module.dir
+C:/Users/Erics/Documents/Chess/models/mapping/build/CMakeFiles/alphanet_module.dir
+C:/Users/Erics/Documents/Chess/models/mapping/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Erics/Documents/Chess/models/mapping/build/CMakeFiles/ZERO_CHECK.dir

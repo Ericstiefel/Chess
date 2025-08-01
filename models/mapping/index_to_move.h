@@ -9,5 +9,4 @@
 #include <fstream>
 
 void save_index_to_move(const std::string& filename);
-void load_index_to_move(const std::string& filename);
 void generate_all_moves();
